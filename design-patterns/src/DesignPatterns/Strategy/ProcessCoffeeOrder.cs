@@ -12,12 +12,11 @@ public class ProcessCoffeeOrder
     public void Execute(string coffeeType)
     {
         Coffee = CoffeeFactory.CreateCoffee(coffeeType);
-        ProcessConfirmationMessage = Coffee.GetProcessConfirmationMessage();
-        Console.WriteLine(ProcessConfirmationMessage);
+        Console.WriteLine(Coffee.GetProcessConfirmationMessage());
     }
 }
 
-public class ProcessCoffeeOrderBeforeSimpleFactory
+public class ProcessCoffeeOrderBeforeFactory
 {
     public decimal Total { get; private set; } = 0;
     public int PreparationTimeInMinutes { get; private set;} = 0;
@@ -30,19 +29,16 @@ public class ProcessCoffeeOrderBeforeSimpleFactory
         {
             case "Espresso":
                 Coffee = new Espresso();
-                ProcessConfirmationMessage = Coffee.GetProcessConfirmationMessage();
                 break;
             case "Latte":
                 Coffee = new Latte();
-                ProcessConfirmationMessage = Coffee.GetProcessConfirmationMessage();
                 break;
             case "Iced Coffee":
                 Coffee = new IcedCoffee();
-                ProcessConfirmationMessage = Coffee.GetProcessConfirmationMessage();
                 break;
-        }   
-        
-        Console.WriteLine(ProcessConfirmationMessage);
+        }
+        ProcessConfirmationMessage = Coffee.GetProcessConfirmationMessage(); 
+        Console.WriteLine(Coffee.GetProcessConfirmationMessage());
     }
 }
 
@@ -64,6 +60,7 @@ public class ProcessCoffeeOrderBeforeStrategy
                                              $"Total: ${Total} \n" +
                                              $"Preparation Time: {PreparationTimeInMinutes} minutes";
                 break;
+            
             case "Latte":
                 Total = 7.5m;
                 PreparationTimeInMinutes = 4;
@@ -71,6 +68,7 @@ public class ProcessCoffeeOrderBeforeStrategy
                                              $"Total: ${Total} \n" +
                                              $"Preparation Time: {PreparationTimeInMinutes} minutes";
                 break;
+            
             case "Iced Coffee":
                 ProcessConfirmationMessage = "Sorry, coffee out of stock!";
                 break;
